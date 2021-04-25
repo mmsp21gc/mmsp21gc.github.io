@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning-Based Image Inpainting</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
+
+    <link href="css/owl.carousel.css" rel="stylesheet" media="screen">
+    <link href="css/owl.theme.css" rel="stylesheet" media="screen">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/prettyPhoto.css">
+    <link rel="stylesheet" type="text/css" href="css/workshop.css">
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" style="color: #000">
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="height: auto">
+    <div class="container">
+		<div style="position: absolute; padding: 10px 0px 0px 20px; margin-top: -17px; font-size: large">
+			<p>MMSP 2021 Grand Challenge</p>
+		</div>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse" >
+            <ul class="nav navbar-nav">
+                <li class="hidden">
+                    <a href="#page-top"></a>
+                </li>
+                <li><a class="page-scroll" href="#introduction" style="font-size: 14pt;">Challenge description</a></li>
+				<li><a class="page-scroll" href="#datasets" style="font-size: 14pt;">Datasets</a></li>
+                <li><a class="page-scroll" href="#evaluation" style="font-size: 14pt;">Evaluation criteria</a></li>
+                <li><a class="page-scroll" href="#dates" style="font-size: 14pt;">Submission deadline</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="modified-header intro" style="background-image: url(img/title1.jpg); padding-top: 10px">
+    <div class="intro-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2" style="margin-top:  100px;">
+                    <h1 style="font-size: 48pt;"><span style="color: #f3d19f;">MMSP Challenge on</span><br><span style="color: rgb(231, 96, 62);">Structure-Guided Image Inpainting</span></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="introduction">
+    <div class="container"> <!-- Container -->
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="section-title text-center center">
+                <h2>Challenge description</h2>
+                <hr>
+                <p class="welcome-message" style="font-size: 14pt; text-align: justify">
+                    This challenge is meant to consolidate and strengthen research efforts about image inpainting using structural guidance. We will prepare two tracks: image restoration (IR) and image editing (IE). In the IR track, we mask out random areas in an image and provide the edge maps within the areas to help restore the image. In the IE track, we carefully select some objects in an image to be removed and invite users to draw sketches to reflect their ideal layout in the missing region. In both tracks we challenge the researchers to inpaint the incomplete image with the structural guidance. The major difference between the two tracks is that, in the first track, we want to recover the missing areas so that the completed image approximates the original, and in the second track, our goal is to make the result visually plausible and to meet the structural constraints as much as possible.
+                </p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div  id="datasets" style="background-color: #F5F5F5;">
+    <div class="container" > <!-- Container -->
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="section-title text-center center">
+                <h2>Datasets</h2>
+                <hr>
+                <div class="welcome-message text-left" style="font-size: 14pt">
+                <p style="text-align: justify;">
+                    <strong>Training</strong> data is now available at <a href="http://img.cnbita.com/_ec46b71996e44d68866d6c7eef8946ee.zip?attname=train_img.zip">link</a>. Training set consists of around 1500 high-definition natural, complete images.
+                </p>
+                <p style="text-align: justify;">
+                    <strong>Validation</strong> set has two subsets that correspond to the two tracks: IR and IE. For validation set we will provide a mask for each image to indicate “missing areas” and a sketch map to provide the “structural guidance”
+                </p>
+                <p style="text-align: justify;">
+                    <strong>Test set</strong> is similar in scale to the validation set, and for each test image we will provide incomplete image together with a mask and sketch map. The ground-truth of test images is not public.
+                </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="evaluation">
+    <div class="container"> <!-- Container -->
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="section-title text-center center">
+                <h2>Evaluation criteria</h2>
+                <hr>
+                <p class="welcome-message text-left" style="font-size: 14pt; text-align: justify;">
+                    We set different criteria for the two tracks. 
+                </p>
+				<p class="welcome-message text-left" style="font-size: 14pt; text-align: justify;">
+					For the <strong>IR track</strong>, we will use a combination of PSNR and SSIM, calculated within and around the missing areas between the original and the completed images.
+				</p>
+				<p class="welcome-message text-left" style="font-size: 14pt; text-align: justify;">
+					For the <strong>IE track</strong>, we will use a combination of objective and subjective evaluations.
+				</p>
+				<p class="welcome-message text-left" style="font-size: 14pt; text-align: justify;">
+					For objective evaluation, we use FID and the structure similarity metric, SS. FID measures the realism of the generated images. Meanwhile, SS measures the similarity between the input user sketch and the edge map in the missing region extracted by XDoG. For subjective evaluation, we use MOS. We will have a team of about 40-50 subjects to evaluate the completed images pairwisely, where each subject is given two images at once and required to select a better one from the two.
+				</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="dates" style="background-color: #F5F5F5">
+    <div class="container">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="section-title text-center center">
+                <h2>Submission deadline</h2>
+                <hr>
+                <ul class="welcome-message text-left" style="font-size: 14pt">
+                    <li class="welcome-message text-left" style="padding-top: 6px;">
+                        <strong>July 19, 2021: </strong>Paper submission deadline
+                    </li>
+                    <li class="welcome-message text-left" style="padding-top: 6px;">
+                        <strong>July 19, 2021: </strong>Test image submission deadline
+                    </li>
+
+                    <li class="welcome-message text-left" style="padding-top: 6px;">
+                        <strong>August 2, 2021: </strong>Paper acceptance notification
+                    </li>
+
+                    <li class="welcome-message text-left" style="padding-top: 6px;">
+                        <strong>August 2, 2021: </strong>Evaluation results announcement
+                    </li>
+
+                    <li class="welcome-message text-left" style="padding-top: 6px;">
+                        <strong>August 9, 2021: </strong>Camera-ready paper submission deadline
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div  id="guidelines">
+    <div class="container" > <!-- Container -->
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="section-title text-center center">
+                <h2>Submission guidelines</h2>
+                <hr>
+                <div class="welcome-message text-left" style="font-size: 14pt">
+                <p>
+                	By <strong>July 19, 2019</strong>, participants should submit paper and test result (i.e. completed images).
+                </p>
+                <p>
+                	By <strong>July 20, 2019</strong>, participants should to submit their (testing) code and model for verification purpose.
+                </p>
+                <p>
+                	We will provide an uploading service for participants.
+                </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="background-color: #F5F5F5">
+    <div class="container">
+        <div class="section-title text-center center">
+            <h2>
+                Coordinators
+            </h2>
+            <hr>
+        </div>
+        <div>
+        	<div class="row">
+                <div class="col-lg-3 col-lg-offset-1">
+                    <img src="img/DongLiu.jpeg" width="180px" style="border-radius: 50%; border: solid rgb(243,207,78) thick" class="img-rounded">
+                </div>
+                <div class="col-lg-7" style="font-size: x-large">
+                    <strong>Prof. Dong Liu<br>
+                    </strong>University of Science and Technology of China<br>
+                    Email: dongeliu@ustc.edu.cn<br>
+					Homepage: <a href="http://staff.ustc.edu.cn/~dongeliu/">Link</a><br>
+                </div>
+            </div>
+
+
+        	<div class="row">
+                <div class="col-lg-3 col-lg-offset-1">
+                    <img src="img/atlaswang.jpeg" width="180px" style="border-radius: 50%; border: solid rgb(243,207,78) thick" class="img-rounded">
+                </div>
+                <div class="col-lg-7" style="font-size: x-large">
+                    <strong>Prof. Zhangyang (Atlas) Wang<br>
+                    </strong>University of Texas at Austin<br>
+                    Email: atlaswang@utexas.edu<br>
+					Homepage: <a href="https://vita-group.github.io/">Link</a><br>
+                </div>
+            </div>
+
+
+        	<div class="row">
+                <div class="col-lg-3 col-lg-offset-1">
+                    <img src="img/shuaiyang.jpeg" width="180px" style="border-radius: 50%; border: solid rgb(243,207,78) thick" class="img-rounded">
+                </div>
+                <div class="col-lg-7" style="font-size: x-large">
+                    <strong>Dr. Shuai Yang<br>
+                    </strong>Nanyang Technological University<br>
+                    Email: shuai.yang@ntu.edu.sg<br>
+					Homepage: <a href="https://williamyang1991.github.io/">Link</a><br>
+                </div>
+            </div>
+
+
+        	<div class="row">
+                <div class="col-lg-3 col-lg-offset-1">
+                    <img src="img/yueyuhu.JPG" width="180px" style="border-radius: 50%; border: solid rgb(243,207,78) thick" class="img-rounded">
+                </div>
+                <div class="col-lg-7" style="font-size: x-large">
+                    <strong>Yueyu Hu<br>
+                    </strong>Peking University<br>
+                    Email: huyy@pku.edu.cn<br>
+					Homepage: <a href="https://huzi96.github.io/">Link</a><br>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+
+
+
+
+<footer class="page-footer" style="background-color: rgb(34,34,34); margin: 0 !important; color: #F5F5F5">
+    <div class="container">
+        <div class="text-center fnav">
+            <p>Copyright © 2021 MMSP Challenge Organization Committee. Pictures under CC BY-NC-ND 4.0.</p>
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="js/SmoothScroll.js"></script> -->
+<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="js/jquery.isotope.js"></script>
+<script type="text/javascript" src="js/jquery.counterup.js"></script>
+<script type="text/javascript" src="js/waypoints.js"></script>
+<script type="text/javascript" src="js/jqBootstrapValidation.js"></script>
+<script type="text/javascript" src="js/contact_me.js"></script>
+<script src="js/owl.carousel.js"></script>
+
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+</body>
+</html>
